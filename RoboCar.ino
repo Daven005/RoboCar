@@ -77,7 +77,7 @@ unsigned int motionDuration;
 bool motionInProgress = false;
 bool motorsRunning = false;
 uint16_t battVolts;
-const char *version = "Robo Car v0.0.5";
+const char *version = "Robo Car v0.0.6";
 
 void printBoth(String &s) {
   Serial.print(s);
@@ -231,7 +231,7 @@ void setRun(int argCnt, char **args) {
 }
 
 void printStatus(int argCnt, char **args) {
-  String s = "";
+  String s = "mode1 ";
   printBoth(s + "Mode: " + mode + " Motion: " + motion + " Turn: " + turn);
   printBoth(s + " Distance: " + (int)leftSonar.distance() + "/" + (int)rightSonar.distance());
   printBoth(s + " Motors: ");
@@ -299,7 +299,7 @@ void startMotion(Motion_t m, Turn_t t, unsigned int duration) {
 
 bool checkMotion() {
   String s;
-  if (!motionInProgress) return;
+  if (!motionInProgress) return false;
   if ((millis() - motionStarted) > motionDuration) {
     switch (mode) {
       case OFF: return false;
